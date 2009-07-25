@@ -1,0 +1,3 @@
+<td nowrap width="1%" style="text-align: center">
+    $!issue.getEnvironment()
+</td>

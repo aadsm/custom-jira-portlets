@@ -1,0 +1,82 @@
+#if ($searchRequest)
+    #set($colspan = $columns.size())
+    <table class="tableBorder maxWidth" border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td>
+    <table id="searchresults_portlet_$portletConfig.id" border="0" cellpadding="3" cellspacing="1" width="100%">
+        <tr class=rowHeader>
+            <td class="colHeaderLink" colspan="$colspan">
+            $searchTypeName: <b><a href="$linkToSearch">$textutils.htmlEncode($searchName)</a></b>
+            <small>&nbsp;
+                ($i18n.getText("portlet.assignedissues.overflow", "$displayedIssueCount", "$totalNumIssues"))
+            </small>
+            #if ($description) ## This is a hack, just for search filters, and not for 'assigned to me', or 'in progress'
+                <br>
+                <span class="small wrapping">$textutils.htmlEncode($description)</span>
+            #end
+            </td>
+        </tr>
+    #if ("yes" == $showheader)
+        <tr class="rowHeader">
+            #foreach ($column in $columns)
+                <td>
+                    <small>$fm.getField($column).getName()</small>
+                </td>
+            #end
+        </tr>
+    #end
+    #if ($indexing)
+        #if ($issues)
+            #foreach ($issue in $issues)
+                #if ($issue)
+                    #parse('templates/custom/issuesummary.vm')
+                #else
+                    #set($brokenindex=true)
+                #end
+            #end
+        #else
+            <tr bgcolor="#FFFFFF">
+                <td width="100%"  colspan="4">
+                    $noIssuesText
+                </td>
+            </tr>
+        #end
+        #if ($brokenindex)
+            <tr><td bgcolor="#ffaaaa" colspan="4">
+            Search indexes missing or corrupt&mdash;some issues may not shown<br>&nbsp;<br>
+            #if ($admin)
+                Please <a href="$req.contextPath/secure/admin/jira/IndexAdmin.jspa">reindex</a> the data.
+            #else
+                Please contact your administrator to reindex the data.
+            #end
+        #end
+        </td></tr>
+    #else
+        <tr><td bgcolor="#ffffff">
+            #configureIndexing($req.contextPath)
+        </td></tr>
+    #end
+    </table>
+    </td></tr></table>
+
+#else
+    <table class="tableBorder maxWidth" border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr><td>
+            <table id="searchresults_portlet_$portletConfig.id" border="0" cellpadding="3" cellspacing="1" width="100%">
+                <tr class=rowHeader>
+                    <td class="colHeaderLink">$searchTypeName: <b>???</b></td>
+                </tr>
+                    <tr bgcolor="#FFFFFF">
+                        <td>
+                            $descriptor.getText("portlet.filters.invalid")
+                            ## A user can only edit/delete the portlets that belong to them.
+                            #if ($editablePortletConfig)
+                                <font size="1" color="#000000">&nbsp;
+                                    (<a href="$req.contextPath/secure/SavePortlet!default.jspa?portletConfigId=$portletConfig.id" title="$i18n.getText('portlet.edit.title')">$i18n.getText('portlet.edit')</a> |
+                                    <a href="$req.contextPath/secure/DeletePortlet!delete.jspa?portletConfigId=$portletConfig.id" title="$i18n.getText('portlet.delete.title')">$i18n.getText('portlet.delete')</a>)
+                                </font>
+                            #end
+                        </td>
+                    </tr>
+            </table>
+        </td></tr>
+    </table>
+#end

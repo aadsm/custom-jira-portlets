@@ -1,0 +1,1 @@
+<td nowrap width="1%"><font size="1"><a href="$req.contextPath/browse/$issue.getKey()"><span class="issuekey">$issue.getKey()</span></a></font></td>

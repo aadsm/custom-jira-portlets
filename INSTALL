@@ -1,0 +1,5 @@
+cd plugin-portlet-custom/
+maven jar
+cp target/afonso-jira-plugin-portlet-custom-1.0.jar <jira installation>/atlassian-jira/WEB-INF/lib/
+<jira installation>/bin/shutdown.sh
+<jira installation>/bin/startup.sh

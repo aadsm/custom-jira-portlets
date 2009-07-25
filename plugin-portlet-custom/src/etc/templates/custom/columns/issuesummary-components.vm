@@ -1,0 +1,5 @@
+<td nowrap width="1%" style="text-align: center">
+    #foreach( $component in $issue.getComponents() )
+        ${component.name}&nbsp;
+    #end
+</td>

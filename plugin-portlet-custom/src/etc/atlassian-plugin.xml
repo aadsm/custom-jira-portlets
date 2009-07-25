@@ -1,0 +1,138 @@
+<atlassian-plugin key="net.aadsm.jira.plugin.portlet.custom" name="">
+    <plugin-info>
+        <description>A set of custom portlets for JIRA</description>
+        <version>1.0</version>
+        <application-version min="3.0" max="3.0"/>
+        <vendor name="António Afonso" url="http://www.aadsm.net"/>
+    </plugin-info>
+    
+    <portlet key="customsearchrequest" name="Show saved filter (with custom fields)" class="net.aadsm.jira.plugin.portlets.custom.SearchRequestPortlet">
+        <description key="portlet.custom.searchrequest.description">i18n description</description>
+        <resource type="velocity" name="view" location="templates/custom/searchresults.vm" />
+        <resource type="i18n" name="i18n" location="net.aadsm.jira.plugin.portlets.custom.searchrequest" />
+        <label key="portlet.custom.searchrequest.name"/>
+        <objectdescriptor class="com.atlassian.jira.portal.SearchRequestObjectDescriptor"/>
+        <properties>
+            <property>
+                <key>filterid</key>
+                <name>portlet.searchrequest.field.filterid.name</name>
+                <description>portlet.searchrequest.field.filterid.description</description>
+                <type>filterpicker</type>
+                <i18n>false</i18n>
+            </property>
+            <property>
+                <key>numofentries</key>
+                <name>portlet.searchrequest.field.numofentries.name</name>
+                <description>portlet.searchrequest.field.numofentries.description</description>
+                <type>long</type>
+                <default>5</default>
+            </property>
+            <property>
+                <key>showdescription</key>
+                <name>portlet.searchrequest.field.showdescription.name</name>
+                <description>portlet.searchrequest.field.showdescription.description</description>
+                <type>select</type>
+                <default>false</default>
+                <values>
+                    <value>
+                        <key>true</key>
+                        <value>portlet.searchrequest.field.showdescription.true</value>
+                    </value>
+                    <value>
+                        <key>false</key>
+                        <value>portlet.searchrequest.field.showdescription.false</value>
+                    </value>
+                </values>
+            </property>
+            <property>
+                <key>showheader</key>
+                <name>portlet.custom.searchrequest.field.showheader.name</name>
+                <description>portlet.custom.searchrequest.field.showheader.description</description>
+                <type>select</type>
+                <default>no</default>
+                <values>
+                    <value>
+                        <key>yes</key>
+                        <value>portlet.custom.searchrequest.field.showheader.yes</value>
+                    </value>
+                    <value>
+                        <key>no</key>
+                        <value>portlet.custom.searchrequest.field.showheader.no</value>
+                    </value>
+                </values>
+            </property>
+            
+            <property>
+                <key>column1</key>
+                <name>portlet.custom.searchrequest.field.column1.name</name>
+                <type>select</type>
+                <default>issuetype</default>
+                <values class="net.aadsm.jira.portal.FieldValuesGenerator" />
+            </property>
+            <property>
+                <key>column2</key>
+                <name>portlet.custom.searchrequest.field.column2.name</name>
+                <type>select</type>
+                <default>issuekey</default>
+                <values class="net.aadsm.jira.portal.FieldValuesGenerator" />
+            </property>
+            <property>
+                <key>column3</key>
+                <name>portlet.custom.searchrequest.field.column3.name</name>
+                <type>select</type>
+                <default>summary</default>
+                <values class="net.aadsm.jira.portal.FieldValuesGenerator" />
+            </property>
+            <property>
+                <key>column4</key>
+                <name>portlet.custom.searchrequest.field.column4.name</name>
+                <type>select</type>
+                <default>priority</default>
+                <values class="net.aadsm.jira.portal.FieldValuesGenerator" />
+            </property>
+            <property>
+                <key>column5</key>
+                <name>portlet.custom.searchrequest.field.column5.name</name>
+                <type>select</type>
+                <default>none</default>
+                <values class="net.aadsm.jira.portal.FieldValuesGenerator" />
+            </property>
+            <property>
+                <key>column6</key>
+                <name>portlet.custom.searchrequest.field.column6.name</name>
+                <type>select</type>
+                <default>none</default>
+                <values class="net.aadsm.jira.portal.FieldValuesGenerator" />
+            </property>
+            <property>
+                <key>column7</key>
+                <name>portlet.custom.searchrequest.field.column7.name</name>
+                <type>select</type>
+                <default>none</default>
+                <values class="net.aadsm.jira.portal.FieldValuesGenerator" />
+            </property>
+            <property>
+                <key>column8</key>
+                <name>portlet.custom.searchrequest.field.column8.name</name>
+                <type>select</type>
+                <default>none</default>
+                <values class="net.aadsm.jira.portal.FieldValuesGenerator" />
+            </property>
+            <property>
+                <key>column9</key>
+                <name>portlet.custom.searchrequest.field.column9.name</name>
+                <type>select</type>
+                <default>none</default>
+                <values class="net.aadsm.jira.portal.FieldValuesGenerator" />
+            </property>
+            <property>
+                <key>column10</key>
+                <name>portlet.custom.searchrequest.field.column10.name</name>
+                <type>select</type>
+                <default>none</default>
+                <values class="net.aadsm.jira.portal.FieldValuesGenerator" />
+            </property>
+        </properties>
+    </portlet>
+
+</atlassian-plugin>

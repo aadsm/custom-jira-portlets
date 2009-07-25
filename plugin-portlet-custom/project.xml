@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+    <pomVersion>3</pomVersion>
+    <extend>../common/project.xml</extend>
+    <id>afonso-jira-plugin-portlet-custom</id>
+    <name>Custom Portlets</name>
+    <currentVersion>1.0</currentVersion>
+    <package>net.aadsm.jira.plugin.portlets.custom</package>
+    <description>A set of custom portlets for JIRA.</description>
+
+    <developers>
+        <developer>
+            <name>António Afonso</name>
+            <id>aadsm</id>
+            <email>antonio.afonso@gmail.com</email>
+        </developer>
+    </developers>
+
+</project>

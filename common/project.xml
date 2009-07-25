@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <pomVersion>3</pomVersion>
+    <dependencies>
+        <dependency>
+            <id>atlassian-jira</id>
+            <version>3.13</version>
+        </dependency>
+        <!-- Atlassian source dependencies -->
+        <dependency>
+            <id>atlassian-core</id>
+            <groupId>com.atlassian.core</groupId>
+            <version>3.13</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+                <atlassian.ship>source</atlassian.ship>
+                <atlassian.repo>svnprivate</atlassian.repo>
+                <atlassian.cvs.tag>atlassian-core-3.13</atlassian.cvs.tag>
+                <atlassian.module.dir>atlassian-core</atlassian.module.dir>
+            </properties>
+        </dependency>
+        <dependency>
+            <id>atlassian-configurableobjects</id>
+            <groupId>com.atlassian.configurableobjects</groupId>
+            <version>0.9</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+                <atlassian.ship>source</atlassian.ship>
+                <atlassian.module.dir>configurableobjects</atlassian.module.dir>
+                <atlassian.repo>svnprivate</atlassian.repo>
+                <atlassian.cvs.tag>atlassian-configurableobjects-0.9</atlassian.cvs.tag>
+            </properties>
+        </dependency>
+        <!-- Jakarta dependencies -->
+        <dependency>
+            <id>commons-lang</id>
+            <version>2.4</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <!--
+        <dependency>
+            <id>commons-collections</id>
+            <version>3.2</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        -->
+        <dependency>
+            <id>velocity</id>
+            <version>1.4</version>
+            <properties>
+              <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <!-- OS dependencies -->
+        <dependency>
+            <id>osuser</id>
+            <version>1.0-dev-log4j-1.4jdk-7Dec05</version>
+            <properties>
+              <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+    </dependencies>
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/etc/</directory>
+                <include>atlassian-plugin.xml</include>
+                <include>**/*.vm</include>
+            </resource>
+        </resources>
+    </build>
+</project>
