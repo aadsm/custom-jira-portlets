@@ -1,0 +1,5 @@
+<td nowrap width="1%" style="text-align: center">
+    #foreach( $version in $issue.getFixVersions() )
+        ${version.name}&nbsp;
+    #end
+</td>

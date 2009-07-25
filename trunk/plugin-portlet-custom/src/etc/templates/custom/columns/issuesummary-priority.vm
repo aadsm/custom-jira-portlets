@@ -1,0 +1,7 @@
+<td nowrap width="1%" style="text-align: center">
+    #if ($fieldVisibility.isFieldHidden($issue.getProjectObject().id, "priority", $issue.getIssueTypeObject().id) == false)
+    #displayPriorityNoLink($issue)
+    #else
+      &nbsp;
+    #end
+</td>

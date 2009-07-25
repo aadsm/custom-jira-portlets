@@ -1,0 +1,14 @@
+<tr #if ($velocityCount % 2 == 1) class="rowNormal ${issue.key}-tr" #else class="rowAlternate ${issue.key}-tr" #end >
+    #foreach ($column in $columns)
+        #set($template = "templates/custom/columns/issuesummary-${column}.vm")
+        #set($td = "#parse($template)")
+        
+        #if( $td != '#parse($template)' )
+            $td
+        #elseif( $issue.getGenericValue().containsKey($column) )
+            <td style="text-align: center">$issue.getGenericValue().getString($column)</td>
+        #else
+            <td>you must create $template</td>
+        #end
+    #end
+</tr>
