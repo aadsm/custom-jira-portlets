@@ -31,6 +31,18 @@
                 <atlassian.cvs.tag>atlassian-configurableobjects-0.9</atlassian.cvs.tag>
             </properties>
         </dependency>
+        <dependency>
+            <id>atlassian-plugins</id>
+            <groupId>com.atlassian.plugins</groupId>
+            <version>0.23.2</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+                <atlassian.ship>source</atlassian.ship>
+                <atlassian.module.dir>plugins</atlassian.module.dir>
+                <atlassian.repo>svnprivate</atlassian.repo>
+                <atlassian.cvs.tag>atlassian-plugins-0.23.2</atlassian.cvs.tag>
+            </properties>
+        </dependency>
         <!-- Jakarta dependencies -->
         <dependency>
             <id>commons-lang</id>
