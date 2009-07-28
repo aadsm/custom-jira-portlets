@@ -12,11 +12,16 @@ import com.atlassian.jira.issue.search.SearchProvider;
 import com.atlassian.jira.portal.PortletConfiguration;
 import com.atlassian.jira.security.JiraAuthenticationContext;
 import com.atlassian.jira.security.PermissionManager;
+import com.atlassian.plugin.elements.ResourceDescriptor;
 import org.apache.velocity.app.Velocity;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SearchRequestPortlet extends com.atlassian.jira.portal.portlets.SearchRequestPortlet
 {
@@ -63,7 +68,24 @@ public class SearchRequestPortlet extends com.atlassian.jira.portal.portlets.Sea
         
         params.put("columns", columns);
         params.put("fm", ManagerFactory.getFieldManager());
+        params.put("tmpls", getColumnTemplates());
         
         return params;
+    }
+    
+    protected Map getColumnTemplates()
+    {
+        Map tmpls = new HashMap();
+        
+        List rsrcs = getDescriptor().getResourceDescriptors("velocity");
+        Iterator it = rsrcs.iterator();
+        
+        while( it.hasNext() )
+        {
+            ResourceDescriptor rsrc = (ResourceDescriptor)it.next();
+            tmpls.put(rsrc.getName(), rsrc.getLocation());
+        }
+        
+        return tmpls;
     }
 }
