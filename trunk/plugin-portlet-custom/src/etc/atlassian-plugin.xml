@@ -21,6 +21,7 @@
         <resource type="velocity" name="resolution" location="templates/custom/columns/issuesummary-resolution.vm" />
         <resource type="velocity" name="status" location="templates/custom/columns/issuesummary-status.vm" />
         <resource type="velocity" name="summary" location="templates/custom/columns/issuesummary-summary.vm" />
+        <resource type="velocity" name="issuelink" location="templates/custom/columns/issuesummary-issuelink.vm" />
         <resource type="i18n" name="i18n" location="net.aadsm.jira.plugin.portlets.custom.searchrequest" />
         <label key="portlet.custom.searchrequest.name"/>
         <objectdescriptor class="com.atlassian.jira.portal.SearchRequestObjectDescriptor"/>

@@ -4,10 +4,16 @@
 package net.aadsm.jira.plugin.portlets.custom;
 
 import com.atlassian.configurable.ObjectConfigurationException;
+import com.atlassian.jira.ComponentManager;
 import com.atlassian.jira.ManagerFactory;
 import com.atlassian.jira.bc.filter.SearchRequestService;
 import com.atlassian.jira.config.ConstantsManager;
 import com.atlassian.jira.config.properties.ApplicationProperties;
+import com.atlassian.jira.issue.Issue;
+import com.atlassian.jira.issue.link.IssueLinkManager;
+import com.atlassian.jira.issue.link.IssueLinkType;
+import com.atlassian.jira.issue.link.IssueLinkTypeManager;
+import com.atlassian.jira.issue.fields.FieldManager;
 import com.atlassian.jira.issue.search.SearchProvider;
 import com.atlassian.jira.portal.PortletConfiguration;
 import com.atlassian.jira.security.JiraAuthenticationContext;
@@ -46,6 +52,7 @@ public class SearchRequestPortlet extends com.atlassian.jira.portal.portlets.Sea
     {
         Map params = super.getVelocityParams(portletConfiguration);
         List columns = new Vector();
+        Map headers = new HashMap();
                 
         try
         {
@@ -58,6 +65,7 @@ public class SearchRequestPortlet extends com.atlassian.jira.portal.portlets.Sea
                 if( ! FIELD_NONE.equals(value) )
                 {
                     columns.add(value);
+                    headers.put( value, getHeader(value) );
                 }
             }
         }
@@ -67,8 +75,9 @@ public class SearchRequestPortlet extends com.atlassian.jira.portal.portlets.Sea
         }
         
         params.put("columns", columns);
-        params.put("fm", ManagerFactory.getFieldManager());
+        params.put("headers", headers);
         params.put("tmpls", getColumnTemplates());
+        params.put("issueLinkManager", getIssueLinkManager());
         
         return params;
     }
@@ -87,5 +96,39 @@ public class SearchRequestPortlet extends com.atlassian.jira.portal.portlets.Sea
         }
         
         return tmpls;
+    }
+    
+    protected IssueLinkManager getIssueLinkManager()
+    {
+        return (IssueLinkManager)ComponentManager.getComponentInstanceOfType(IssueLinkManager.class);
+    }
+    
+    protected IssueLinkTypeManager getIssueLinkTypeManager()
+    {
+        return (IssueLinkTypeManager)ComponentManager.getComponentInstanceOfType(IssueLinkTypeManager.class);
+    }
+    
+    public String getHeader(String column)
+    {
+        if( column.startsWith("issuelink-") )
+        {
+            String[] params = column.split("-");
+            IssueLinkTypeManager issueLinkTypeManager = getIssueLinkTypeManager();
+            
+            IssueLinkType issueLinkType = issueLinkTypeManager.getIssueLinkType( new Long(params[1]) );
+            if( "inward".equals( params[2]) )
+            {
+                return issueLinkType.getInward();
+            }
+            else
+            {
+                return issueLinkType.getOutward();
+            }
+        }
+        else
+        {
+            FieldManager fieldManager = ManagerFactory.getFieldManager();
+            return fieldManager.getField(column).getName();
+        }
     }
 }
