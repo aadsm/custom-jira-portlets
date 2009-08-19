@@ -7,6 +7,9 @@ import com.atlassian.configurable.ValuesGenerator;
 import com.atlassian.jira.ComponentManager;
 import com.atlassian.jira.ManagerFactory;
 import com.atlassian.jira.issue.fields.Field;
+import com.atlassian.jira.issue.link.IssueLinkManager;
+import com.atlassian.jira.issue.link.IssueLinkType;
+import com.atlassian.jira.issue.link.IssueLinkTypeManager;
 import com.atlassian.jira.security.JiraAuthenticationContext;
 import com.atlassian.jira.web.bean.I18nBean;
 import com.opensymphony.user.User;
@@ -39,6 +42,20 @@ public class FieldValuesGenerator implements ValuesGenerator
         catch(Exception ex)
         {
             ex.printStackTrace();
+        }
+        
+        if( values.containsKey("issuelinks") )
+        {
+            String desc = (String)values.remove("issuelinks");
+            IssueLinkTypeManager issueLinkTypeManager = (IssueLinkTypeManager)ComponentManager.getComponentInstanceOfType(IssueLinkTypeManager.class);
+            Iterator it = issueLinkTypeManager.getIssueLinkTypes().iterator();
+            
+            while( it.hasNext() )
+            {
+                IssueLinkType type = (IssueLinkType)it.next();
+                values.put( "issuelink-" + type.getId() + "-inward", desc + " - " + type.getInward() );
+                values.put( "issuelink-" + type.getId() + "-outward", desc + " - " + type.getOutward() );
+            }
         }
         
         return values;

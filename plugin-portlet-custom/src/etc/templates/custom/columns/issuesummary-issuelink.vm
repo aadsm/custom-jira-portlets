@@ -1,0 +1,26 @@
+<td nowrap width="1%" style="text-align: center">    
+    #set($ix1 = $params.indexOf('-') + 1)
+    #set($ix2 = $params.indexOf('-', $ix1))
+    
+    #set($ix2_plus_1 = $ix2 + 1)
+    #set($id = $params.substring( $ix1, $ix2 ))
+    #set($type = $params.substring( $ix2_plus_1 ))
+    
+    #if( $type == "outward")
+        #set($links = $issueLinkManager.getOutwardLinks($issue.id))
+    #else
+        #set($links = $issueLinkManager.getInwardLinks($issue.id))
+    #end
+    
+    #foreach ($link in $links)
+        #if( $link.getLinkTypeId().toString().equals( $id ) )
+            #if( $type == "outward")
+                #set($key = $link.getDestinationObject().getKey())
+            #else
+                #set($key = $link.getSourceObject().getKey())
+            #end
+            
+            <font size="1"><a href="$req.contextPath/browse/$key"><span class="issuekey">$key</span></a></font> 
+        #end
+    #end
+</td>

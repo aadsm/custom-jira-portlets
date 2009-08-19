@@ -18,7 +18,7 @@
         <tr class="rowHeader">
             #foreach ($column in $columns)
                 <td>
-                    <small>$fm.getField($column).getName()</small>
+                    <small>$headers.get($column)</small>
                 </td>
             #end
         </tr>
