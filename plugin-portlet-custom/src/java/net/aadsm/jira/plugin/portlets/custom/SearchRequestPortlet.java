@@ -19,6 +19,8 @@ import com.atlassian.jira.portal.PortletConfiguration;
 import com.atlassian.jira.security.JiraAuthenticationContext;
 import com.atlassian.jira.security.PermissionManager;
 import com.atlassian.plugin.elements.ResourceDescriptor;
+
+import org.apache.log4j.Logger;
 import org.apache.velocity.app.Velocity;
 
 import java.util.HashMap;
@@ -31,11 +33,14 @@ import java.util.regex.Pattern;
 
 public class SearchRequestPortlet extends com.atlassian.jira.portal.portlets.SearchRequestPortlet
 {
+
     // TODO: I can probably detect this on runtime
     private static final int NUMBER_COLUMNS = 10;
-    private static final String CONFIG_PREFIX = "portlet.custom.searchrequest.";
-    private static final String PROPERTY_COLUMN_PREFIX = CONFIG_PREFIX + "field.column.";
     private static final String FIELD_NONE = "none";
+    private final Logger logger = Logger.getLogger(SearchRequestPortlet.class);
+    private final IssueLinkManager linkManager;
+    private final IssueLinkTypeManager issueLinkTypeManager;
+    private FieldManager fieldManager;
     
     public SearchRequestPortlet(JiraAuthenticationContext authenticationContext, 
                                 PermissionManager permissionManager,
@@ -46,6 +51,9 @@ public class SearchRequestPortlet extends com.atlassian.jira.portal.portlets.Sea
     {
         super( authenticationContext, permissionManager, constantsManager,
                searchProvider, applicationProperties, searchRequestService );
+        this.linkManager = ComponentManager.getInstance().getIssueLinkManager();
+        this.issueLinkTypeManager = (IssueLinkTypeManager) ComponentManager.getInstance().getContainer().getComponentInstanceOfType(IssueLinkTypeManager.class);
+        this.fieldManager = ManagerFactory.getFieldManager();
     }
     
     protected Map getVelocityParams(PortletConfiguration portletConfiguration)
@@ -71,13 +79,13 @@ public class SearchRequestPortlet extends com.atlassian.jira.portal.portlets.Sea
         }
         catch( ObjectConfigurationException ex )
         {
-            ex.printStackTrace();
+        	logger.error("An exception occurred while getting Velocity params. ", ex);
         }
         
         params.put("columns", columns);
         params.put("headers", headers);
         params.put("tmpls", getColumnTemplates());
-        params.put("issueLinkManager", getIssueLinkManager());
+        params.put("issueLinkManager", linkManager);
         
         return params;
     }
@@ -98,24 +106,12 @@ public class SearchRequestPortlet extends com.atlassian.jira.portal.portlets.Sea
         return tmpls;
     }
     
-    protected IssueLinkManager getIssueLinkManager()
-    {
-        return (IssueLinkManager)ComponentManager.getComponentInstanceOfType(IssueLinkManager.class);
-    }
-    
-    protected IssueLinkTypeManager getIssueLinkTypeManager()
-    {
-        return (IssueLinkTypeManager)ComponentManager.getComponentInstanceOfType(IssueLinkTypeManager.class);
-    }
-    
     public String getHeader(String column)
     {
-        if( column.startsWith("issuelink-") )
+    	String[] params;
+        if( column.startsWith("issuelink-", 0) && (params = column.split("-")).length == 3 )
         {
-            String[] params = column.split("-");
-            IssueLinkTypeManager issueLinkTypeManager = getIssueLinkTypeManager();
-            
-            IssueLinkType issueLinkType = issueLinkTypeManager.getIssueLinkType( new Long(params[1]) );
+            IssueLinkType issueLinkType = issueLinkTypeManager.getIssueLinkType(Long.valueOf(params[1]) );
             if( "inward".equals( params[2]) )
             {
                 return issueLinkType.getInward();
@@ -127,7 +123,6 @@ public class SearchRequestPortlet extends com.atlassian.jira.portal.portlets.Sea
         }
         else
         {
-            FieldManager fieldManager = ManagerFactory.getFieldManager();
             return fieldManager.getField(column).getName();
         }
     }
