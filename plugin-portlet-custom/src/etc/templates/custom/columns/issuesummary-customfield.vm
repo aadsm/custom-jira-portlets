@@ -1,0 +1,8 @@
+<td nowrap width="1%" style="text-align: center">
+    ## FIXME: this logic should really be in the java and not here ##
+    ##set($ix = $params.indexOf('_') + 1)
+    ##set($id = $params.substring( $ix1 ))
+    
+    #set($field = $customFieldManager.getCustomFieldObject($params))
+    $!field.getValue($issue)
+</td>

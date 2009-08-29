@@ -9,6 +9,7 @@ import com.atlassian.jira.ManagerFactory;
 import com.atlassian.jira.bc.filter.SearchRequestService;
 import com.atlassian.jira.config.ConstantsManager;
 import com.atlassian.jira.config.properties.ApplicationProperties;
+import com.atlassian.jira.issue.CustomFieldManager;
 import com.atlassian.jira.issue.Issue;
 import com.atlassian.jira.issue.link.IssueLinkManager;
 import com.atlassian.jira.issue.link.IssueLinkType;
@@ -40,6 +41,7 @@ public class SearchRequestPortlet extends com.atlassian.jira.portal.portlets.Sea
     private final Logger logger = Logger.getLogger(SearchRequestPortlet.class);
     private final IssueLinkManager linkManager;
     private final IssueLinkTypeManager issueLinkTypeManager;
+    private final CustomFieldManager customFieldManager;
     private FieldManager fieldManager;
     
     public SearchRequestPortlet(JiraAuthenticationContext authenticationContext, 
@@ -54,6 +56,7 @@ public class SearchRequestPortlet extends com.atlassian.jira.portal.portlets.Sea
         this.linkManager = ComponentManager.getInstance().getIssueLinkManager();
         this.issueLinkTypeManager = (IssueLinkTypeManager) ComponentManager.getInstance().getContainer().getComponentInstanceOfType(IssueLinkTypeManager.class);
         this.fieldManager = ManagerFactory.getFieldManager();
+        this.customFieldManager = ManagerFactory.getCustomFieldManager();
     }
     
     protected Map getVelocityParams(PortletConfiguration portletConfiguration)
@@ -86,6 +89,7 @@ public class SearchRequestPortlet extends com.atlassian.jira.portal.portlets.Sea
         params.put("headers", headers);
         params.put("tmpls", getColumnTemplates());
         params.put("issueLinkManager", linkManager);
+        params.put("customFieldManager", customFieldManager);
         
         return params;
     }
