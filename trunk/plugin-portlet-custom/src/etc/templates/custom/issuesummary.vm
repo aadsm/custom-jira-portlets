@@ -1,7 +1,7 @@
 <tr #if ($velocityCount % 2 == 1) class="rowNormal ${issue.key}-tr" #else class="rowAlternate ${issue.key}-tr" #end >
     #foreach ($column in $columns)
         #set($params = $column)
-        #set($ix1 = $params.indexOf('-'))
+        #set($ix1 = $params.indexOf('_'))
         #if( $ix1 > 0 )
             #set($column = $params.substring( 0, $ix1 ))
         #end

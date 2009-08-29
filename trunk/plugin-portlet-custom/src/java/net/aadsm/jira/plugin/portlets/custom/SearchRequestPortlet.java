@@ -109,7 +109,7 @@ public class SearchRequestPortlet extends com.atlassian.jira.portal.portlets.Sea
     public String getHeader(String column)
     {
     	String[] params;
-        if( column.startsWith("issuelink-", 0) && (params = column.split("-")).length == 3 )
+        if( column.startsWith("issuelink_", 0) && (params = column.split("_")).length == 3 )
         {
             IssueLinkType issueLinkType = issueLinkTypeManager.getIssueLinkType(Long.valueOf(params[1]) );
             if( "inward".equals( params[2]) )

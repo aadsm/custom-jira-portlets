@@ -53,8 +53,8 @@ public class FieldValuesGenerator implements ValuesGenerator
             while( it.hasNext() )
             {
                 IssueLinkType type = (IssueLinkType)it.next();
-                values.put( "issuelink-" + type.getId() + "-inward", desc + " - " + type.getInward() );
-                values.put( "issuelink-" + type.getId() + "-outward", desc + " - " + type.getOutward() );
+                values.put( "issuelink_" + type.getId() + "_inward", desc + " - " + type.getInward() );
+                values.put( "issuelink_" + type.getId() + "_outward", desc + " - " + type.getOutward() );
             }
         }
         
