@@ -1,4 +1,5 @@
 <td nowrap width="1%" style="text-align: center">    
+    ## FIXME: this logic should really be in the java and not here ##
     #set($ix1 = $params.indexOf('_') + 1)
     #set($ix2 = $params.indexOf('_', $ix1))
     

@@ -1,12 +1,19 @@
 <tr #if ($velocityCount % 2 == 1) class="rowNormal ${issue.key}-tr" #else class="rowAlternate ${issue.key}-tr" #end >
     #foreach ($column in $columns)
+        ## FIXME: this logic should really be in the java and not here ##
         #set($params = $column)
         #set($ix1 = $params.indexOf('_'))
         #if( $ix1 > 0 )
             #set($column = $params.substring( 0, $ix1 ))
         #end
         
-        #if( $tmpls.containsKey($column) )
+        ## verify first if there is a template with the exact name of the 
+        ## internal name used by JIRA, this way it's possible to override
+        ## any template selection logic by specifying a template with the
+        ## exact same name used internally by JIRA.
+        #if( $tmpls.containsKey($params) )
+            #parse($tmpls.get($params))
+        #elseif( $tmpls.containsKey($column) )
             #parse($tmpls.get($column))
         #elseif( $issue.getGenericValue().containsKey($column) )
             <td style="text-align: center">$issue.getGenericValue().getString($column)</td>
