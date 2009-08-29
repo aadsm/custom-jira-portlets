@@ -1,6 +1,6 @@
 <td nowrap width="1%" style="text-align: center">    
-    #set($ix1 = $params.indexOf('-') + 1)
-    #set($ix2 = $params.indexOf('-', $ix1))
+    #set($ix1 = $params.indexOf('_') + 1)
+    #set($ix2 = $params.indexOf('_', $ix1))
     
     #set($ix2_plus_1 = $ix2 + 1)
     #set($id = $params.substring( $ix1, $ix2 ))
