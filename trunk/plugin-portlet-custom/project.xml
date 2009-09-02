@@ -4,7 +4,7 @@
     <extend>../common/project.xml</extend>
     <id>afonso-jira-plugin-portlet-custom</id>
     <name>Custom Portlets</name>
-    <currentVersion>1.0</currentVersion>
+    <currentVersion>1.1</currentVersion>
     <package>net.aadsm.jira.plugin.portlets.custom</package>
     <description>A set of custom portlets for JIRA.</description>
 
